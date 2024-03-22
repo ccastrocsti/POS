@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Configuracion para Injeccion de Dependecnia ==== INICIO
 var configuration = builder.Configuration;
+
+//CORS
+var Cors = "Cors";
+
 builder.Services.AddInjectionInfraestructure(configuration);
 // Configuracion para Injeccion de Dependecnia ==== FIN
 builder.Services.AddInjectionApplication(configuration);
@@ -16,7 +20,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Cors
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy(name: Cors, builder =>
+    {
+        builder.WithOrigins("*");
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+//Cors
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
