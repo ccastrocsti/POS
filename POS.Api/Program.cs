@@ -33,7 +33,7 @@ builder.Services.AddCors(option =>
 
 var app = builder.Build();
 //Cors
-app.UseCors();
+app.UseCors(Cors);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
